@@ -1,4 +1,6 @@
-const data = require('./data.json');
+const brandsJson = require('./brands.json');
+const carsJson = require('./cars.json');
+
 const Responses = require('./responses.js');
 const fs = require('fs');
 
@@ -20,36 +22,36 @@ function dataTemplate(name, id , description = "This brand has no description.")
 }
 
 function getAllBrands (req, res, get) {
-    return data.brandData;
+    Responses.SendResponse(res, brandsJson);
+}
+
+function getAllCars (req, res, get) {
+    Responses.SendResponse(res, carsJson);
 }
 
 function getBrandById(req, res, get) {
     const dataId = +get.matched[3].path;
-    const findData = data.brandData.find(element => element.id === dataId);
+    const findData = brandsJson.brandData.find(element => element.id === dataId);
     if (findData) {
         // console.log("To be sent: ", findData);
         return Responses.SendResponse(res, findData);
     } else {
-        const errObject = errorHandler(400, 'Bad Request', dataId, `Brand Id: ${dataId} not found, please use a Value from 1 to ${data.brandData.length}`);
+        const errObject = errorHandler(400, 'Bad Request', dataId, `Brand Id: ${dataId} not found, please use a Value from 1 to ${brandsJson.brandData.length}`);
         Responses.SendResponse(res, errObject);
-        Responses.BadRequest(res, new Error(`Brand Id: ${dataId} not found, please use a Value from 1 to ${data.brandData.length}`));
+        Responses.BadRequest(res, new Error(`Brand Id: ${dataId} not found, please use a Value from 1 to ${brandsJson.brandData.length}`));
     };
-}
-
-function getAllCars (req, res, get) {
-    return data.carsData;
 }
 
 function getCarById(req, res, get) {
     const dataId = +get.matched[3].path;
-    const findData = data.carsData.find(element => element.id === dataId);
+    const findData = carsJson.carsData.find(element => element.id === dataId);
     if (findData) {
-        // console.log("To be sent: ", findData);
+        console.log("To be sent: ", findData);
         return Responses.SendResponse(res, findData);
     } else {
-        const errObject = errorHandler(400, 'Bad Request', dataId, `Brand Id: ${dataId} not found, please use a Value from 1 to ${data.carsData.length}`);
+        const errObject = errorHandler(400, 'Bad Request', dataId, `Brand Id: ${dataId} not found, please use a Value from 1 to ${carsJson.carsData.length}`);
         Responses.SendResponse(res, errObject);
-        Responses.BadRequest(res, new Error(`Brand Id: ${dataId} not found, please use a Value from 1 to ${data.carsData.length}`));
+        Responses.BadRequest(res, new Error(`Brand Id: ${dataId} not found, please use a Value from 1 to ${carsJson.carsData.length}`));
     };
 }
 
@@ -87,7 +89,7 @@ function postBrand(req, res, get) {
         Responses.BadRequest(res, new Error(`New data is NOT correct, please use the Keys: "name" or "description" , to submit new information.`));
     } else if (dataQuery.query) {
         
-        fs.readFile('./data.json', 'utf8', (err, data) => {
+        fs.readFile('./brands.json', 'utf8', (err, data) => {
             if(err) {
                 console.log(err);
             } else {
@@ -102,11 +104,12 @@ function postBrand(req, res, get) {
                 // Use:
                 // Parse data to an String.
                 const backToJson = JSON.stringify(dataObject);
-                fs.writeFile('./data.json', backToJson, 'utf8', (err) => {
+                console.log("BackTo", backToJson);
+                fs.writeFile('./brands.json', backToJson, 'utf8', (err) => {
                     if (err) {
                         console.log(err);
                     } else {
-                        Responses.SendResponse(res, data.brandData);
+                        Responses.SendResponse(res, brandsJson);
                     }
                 })
             }

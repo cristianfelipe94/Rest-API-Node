@@ -54,7 +54,7 @@ class Router {
             // Return:
             // Array.
             if (responseRoute.length) {
-                if(responseRoute[0] === true) {
+                if(responseRoute[2] === true) {
                     return currentRoute;
                 }
             } else {
@@ -74,6 +74,7 @@ class Router {
             // Returns:
             // Pass matched route and create an Instance from it.
             const matchedRoute = matched.routeGenerator(req, res, path, query);
+            // console.log("Controller data: ", matchedRoute);
 
             // Get:
             // Create data by passing Request and Response from Route to controller.

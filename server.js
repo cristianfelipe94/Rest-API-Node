@@ -11,6 +11,7 @@ const port = process.env.PORT || 8000;
 const routes = [
     { method: 'GET', path: 'api/v1/brands', controller: controllers.getAllBrands},
     { method: 'GET', path: 'api/v1/brands/:id', controller: controllers.getBrandById},
+
     { method: 'POST', path: 'api/v1/brands', controller: controllers.postBrand},
 
     { method: 'GET', path: 'api/v1/cars', controller: controllers.getAllCars},

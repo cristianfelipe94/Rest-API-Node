@@ -13,6 +13,7 @@ class Responses {
     // Set:
     // Defaul options, an empty Object.
     static SendResponse (res, data, options = {}) {
+        
         // Overwrite:
         // Save a new object status.
         // Use:
@@ -20,11 +21,12 @@ class Responses {
         options = Object.assign(Responses.Status(), options);
 
         console.log("Options:", options);
+
         // Get:
         // Data and parse it to a String.
         const response = JSON.stringify(data);
-        console.log("Response:", response);
-
+        console.log("String data: ", typeof(response));
+        
         // Use:
         // WriteHead(statusCode,[StatusMessage]) sends response to Header.
         res.writeHead(options["Status-Code"], options);
