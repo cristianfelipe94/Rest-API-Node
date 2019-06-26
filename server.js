@@ -9,11 +9,12 @@ const controllers = require('./controllers.js')
 const port = process.env.PORT || 8000;
 
 const routes = [
-    { method: 'GET', path: '/brands', controller: controllers.getAllBrands },
-    { method: 'GET', path: '/brands/:id', controller: controllers.getBrandById},
+    { method: 'GET', path: 'api/v1/brands', controller: controllers.getAllBrands},
+    { method: 'GET', path: 'api/v1/brands/:id', controller: controllers.getBrandById},
+    { method: 'POST', path: 'api/v1/brands', controller: controllers.postBrand},
 
-    { method: 'GET', path: '/cars', controller: controllers.getAllCars },
-    { method: 'GET', path: '/cars/:id', controller: controllers.getCarById}
+    { method: 'GET', path: 'api/v1/cars', controller: controllers.getAllCars},
+    { method: 'GET', path: 'api/v1/cars/:id', controller: controllers.getCarById}
 ];
 
 const server = http.createServer(Router.Register(routes));

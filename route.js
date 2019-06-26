@@ -6,7 +6,7 @@ class Route {
         this.path = singleRoute.path;
         this.method = singleRoute.method;
         this.matched = singleRoute.matched ? this.getPathStatus(singleRoute.matched) : [];
-
+        
         this.controller = singleRoute.controller;
 
         this.pathStatus = this.getPathStatus();
