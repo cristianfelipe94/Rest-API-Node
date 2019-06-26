@@ -1,12 +1,25 @@
 
 const RoutePath = require('./routePath.js');
 
+// Require module:
+// https://nodejs.org/api/querystring.html
+// URL query string parser.
+const querystring = require('querystring');
+
 class Route {
     constructor(singleRoute) {
+        // Get:
+        // Path and method from Passed Route.
         this.path = singleRoute.path;
         this.method = singleRoute.method;
+
+        // Get:
+        // Query params from Route.
         this.matched = singleRoute.matched ? this.getPathStatus(singleRoute.matched) : [];
+        this.query = singleRoute.query ? this.getQueryParams(singleRoute.query, '&', '=') : [];
         
+        // Get:
+        // Controllers from Route.
         this.controller = singleRoute.controller;
 
         this.pathStatus = this.getPathStatus();
@@ -14,11 +27,12 @@ class Route {
 
     // Use:
     // This funtion will create route instances.
-    routeGenerator(req, res, path) {
+    routeGenerator(req, res, path, query) {
         return new Route ({
             path: this.path,
             method: this.method,
             matched: path,
+            query: query,
             controller: this.controller,
         })
     }
@@ -33,6 +47,21 @@ class Route {
             .filter(currentValue => currentValue)
             .map((currentPath, indexPath) => new RoutePath(currentPath, indexPath));
         return generatedStatus;
+    }
+
+    // Use:
+    // Function will separate response URL.
+    getQueryParams(url, delimitKeys, delimitValue) {
+        // Returns:
+        // Object with separated Keys and Values.
+        const urlParsed = querystring.parse(url, delimitKeys, delimitValue);
+        // console.log("Parsed: ",urlParsed);
+        
+        // Returns:
+        // String with Keys and Values in one Line.
+        const urlStringed = querystring.stringify(urlParsed);
+        // console.log("Stringed: ",urlStringed);
+        return urlParsed;
     }
 
     check(path, method) {

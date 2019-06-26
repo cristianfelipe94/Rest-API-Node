@@ -11,6 +11,14 @@ function errorHandler(code, type, data, message) {
     }
 }
 
+function dataTemplate(name, id , description = "This brand has no description.") {
+    return {
+        "name": name,
+        "id": id,
+        "description": description
+    }
+}
+
 function getAllBrands (req, res, get) {
     return data.brandData;
 }
@@ -29,7 +37,6 @@ function getBrandById(req, res, get) {
 }
 
 function getAllCars (req, res, get) {
-    console.log("You will get: ",get, "End getting");
     return data.carsData;
 }
 
@@ -46,47 +53,65 @@ function getCarById(req, res, get) {
     };
 }
 
-// fs.readFile('./data.json', 'utf8', (err, data) => {
-//     if(err) {
-//         console.log(err);
-//     } else {
-//         const stringObject = JSON.parse(data);
-//         stringObject.brandId+=1;
-//         const backToJson = JSON.stringify(stringObject);
-//         fs.writeFile('./data.json', backToJson, 'utf8', (err) => {
-//             if (err) {
-//                 console.log(err);
-//             }
-//         })
-//     }
-// })
+function checkKeys (keysArray) {
+    const expectedKeys = ['name', 'description'];
+    const response = [];
+    for (let i = 0; i < keysArray.length; i++) {
+        const outsideKey = keysArray[i];
+        const insideKey = expectedKeys[i];
+        const responseMatched = outsideKey.localeCompare(insideKey);
+        response.push(responseMatched);
+    }
+    if (response[0] === response[1]) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function postBrand(req, res, get) {
+    const dataQuery = get;
+    const keyObject = Object.keys(dataQuery.query);
+    const keysChecker = checkKeys(keyObject);
+    if (!dataQuery) {
+        const errObject = errorHandler(400, 'Bad Request', dataQuery, `New data is NOT correct, please make sure you are filling all the requested information.`);
+        Responses.SendResponse(res, errObject);
+        Responses.BadRequest(res, new Error(`New data is NOT correct, please make sure you are filling all the requested information.`));
+    } else if (!dataQuery.query) {
+        const errObject = errorHandler(400, 'Bad Request', dataQuery.query, `New data is NOT correct, please submit a new data query.`);
+        Responses.SendResponse(res, errObject);
+        Responses.BadRequest(res, new Error(`New data is NOT correct, please submit a name for this brand.`));
+    } else if (!keysChecker) {
+        const errObject = errorHandler(400, 'Bad Request', dataQuery.query, `New data is NOT correct, please use the Keys: "name" or "description" , to submit new information.`);
+        Responses.SendResponse(res, errObject);
+        Responses.BadRequest(res, new Error(`New data is NOT correct, please use the Keys: "name" or "description" , to submit new information.`));
+    } else if (dataQuery.query) {
+        
+        fs.readFile('./data.json', 'utf8', (err, data) => {
+            if(err) {
+                console.log(err);
+            } else {
+                // Use:
+                // Parse data to an Object.
+                const dataObject = JSON.parse(data);
+                const indexData = dataObject.brandId+=1;
 
-    const data = get;
-    console.log(data);
-    // const dataIndex = data.bandId += 1;
-    // fs.writeFile('data.bandId', dataIndex, (err) => {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log("Wrote file.");
-    //     }
-    // })
-    // console.log(get);
-    // const processedRequest = () => {
-    //     if (!get) {
-    //         const errObject = errorHandler(400, 'Bad Request', get, `New data is NOT correct, please make sure you are filling all the requested information.`);
-    //         Responses.SendResponse(res, errObject);
-    //         Responses.BadRequest(res, new Error(`New data is NOT correct, please make sure you are filling all the requested information.`));
-    //     } else if (!get.name) {
-    //         const errObject = errorHandler(400, 'Bad Request', get.name, `New data is NOT correct, please submit a name for this brand.`);
-    //         Responses.SendResponse(res, errObject);
-    //         Responses.BadRequest(res, new Error(`New data is NOT correct, please submit a name for this brand.`));
-    //     } else if (get) {
-    //         console.log(get);
-    //     }
-    // }
+                const queryTemplate = dataTemplate(dataQuery.query.name, indexData , dataQuery.query.description);
+                dataObject.brandData.push(queryTemplate);
+
+                // Use:
+                // Parse data to an String.
+                const backToJson = JSON.stringify(dataObject);
+                fs.writeFile('./data.json', backToJson, 'utf8', (err) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        Responses.SendResponse(res, data.brandData);
+                    }
+                })
+            }
+        })
+    };
 }
 
 module.exports = {
