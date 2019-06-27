@@ -91,7 +91,7 @@ function postBrand(req, res, get) {
         
         fs.readFile('./brands.json', 'utf8', (err, data) => {
             if(err) {
-                console.log(err);
+                console.log("Not able to read data: ",err);
             } else {
                 // Use:
                 // Parse data to an Object.
@@ -105,17 +105,32 @@ function postBrand(req, res, get) {
                 // Parse data to an String.
                 const backToJson = JSON.stringify(dataObject);
                 console.log("BackTo", backToJson);
-                fs.writeFile('./brands.json', backToJson, 'utf8', (err) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        Responses.SendResponse(res, brandsJson);
-                    }
-                })
+
+                function promisedData(data) {
+                    return new Promise((resolve, reject) => {
+                        fs.writeFile('./brands.json', data, 'utf8', (err) => {
+                            err ? reject("Something went wrong: ", err) : resolve(data);
+                        });
+                    });
+                }
+                
+                promisedData(backToJson).then((promisedData) => {Responses.SendResponse(res, promisedData)}).catch((err) => Responses.SendResponse(res, err));
             }
         })
     };
 }
+
+// function promiseData(data) {
+//     const promiseResponse = new Promise((resolve, reject) => {
+//         fs.writeFile('./brands.json', data, 'utf8', (err) => {
+//             if (err) {
+//                 console.log(err);
+//             } resolve(data);
+//         });
+//     });
+//     promiseResponse.then((promisedData) => {Responses.SendResponse(res, promisedData)}).catch((err) => Responses.SendResponse(res, err));
+// };
+// promiseData(backToJson);
 
 module.exports = {
     getAllBrands,
