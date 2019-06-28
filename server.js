@@ -18,5 +18,6 @@ const routes = [
     { method: 'GET', path: 'api/v1/cars/:id', controller: controllers.getCarById}
 ];
 
-const server = http.createServer(Router.Register(routes));
-server.listen(port);
+const serverFront = http.createServer(Router.Register(routes)).listen(port);
+
+// const server = http.createServer(Router.Register(routes)).listen(port);

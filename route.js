@@ -28,6 +28,8 @@ class Route {
     // Use:
     // This funtion will create route instances.
     routeGenerator(req, res, path, query) {
+
+        res.setHeader('Access-Control-Allow-Origin','*');
         return new Route ({
             path: this.path,
             method: this.method,

@@ -29,7 +29,7 @@ class Responses {
         
         // Use:
         // WriteHead(statusCode,[StatusMessage]) sends response to Header.
-        res.writeHead(options["Status-Code"], options);
+        // res.writeHead(options["Status-Code"], options);
         res.end(response);
     } 
 

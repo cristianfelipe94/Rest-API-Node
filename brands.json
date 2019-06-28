@@ -1,5 +1,5 @@
 {
-    "brandId": 8,
+    "brandId": 4,
     "brandData": [
         {
             "name": "Toyota",
@@ -20,26 +20,6 @@
             "name": "BMW",
             "id": 4,
             "description": "Nuevo BMW X5, color negro."
-        },
-        {
-            "name": "felipe",
-            "id": 5,
-            "description": "calderon"
-        },
-        {
-            "name": "felipe",
-            "id": 6,
-            "description": "calderon"
-        },
-        {
-            "name": "felipe",
-            "id": 7,
-            "description": "calderon"
-        },
-        {
-            "name": "felipe",
-            "id": 8,
-            "description": "calderon"
         }
     ]
 }

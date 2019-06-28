@@ -22,7 +22,7 @@ class Router {
     route (req, res) {
         this.req = req;
         this.res = res;
-
+        
         // Request:
         // This request event, includes a URL path.
         const pathURL = this.req.url;
@@ -78,7 +78,7 @@ class Router {
 
             // Get:
             // Create data by passing Request and Response from Route to controller.
-            const data = matchedRoute.controller(this.req, this.res, matchedRoute)
+            const data = matchedRoute.controller(this.req, this.res, matchedRoute);
             Responses.SendResponse(res, data);
         }
     }
