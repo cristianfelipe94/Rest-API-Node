@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Load Data</title>
 </head>
+
 <body>
     <h2>Data loader.</h2>
     <select id="js-getter-select" onChange="printData(this.value)">
@@ -13,19 +15,151 @@
         <option value="brands">Get Brands</option>
         <option value="cars">Get Cars</option>
     </select>
+    <table class="main__table">
+        <tr id="js-th-col" class="ui__table__flex--col"></tr>
+        <tbody id="js-tr-access" class="ui__table__body"></tbody>
+    </table>
 </body>
 <script>
+
+    const thAccessCol = document.getElementById('js-th-col');
+    const trAccess = document.getElementById('js-tr-access');
+
     function printData(dataSelected) {
         console.log("Data selected: ", dataSelected);
         const dataType = dataSelected;
         console.log("Data parsed: ", dataType);
-        if(dataType === 'brands') {
+        if (dataType === 'brands') {
             fetch(`http://localhost:8000/api/v1/${dataType}`).then(function (response) {
                 if (response.status !== 200) {
                     console.log("Error something went wrong: ", response.status);
                 }
                 response.json().then(function (responseData) {
-                    console.log("Data response: ", responseData);
+                    const dataHeadRow = document.createElement('tr');
+                    const dataRows = Object.keys(responseData.brandData);
+                    const rowHeads = dataRows.map(currenNumber => { return parseInt(currenNumber) + 1 });
+                    const columnHeads = Object.keys(responseData.brandData[0]);
+                    const mainTableArray = new Array;
+                    let blockNewRow;
+                    
+                    // built(columnHeads.length, rowHeads.length, tableArray, outsiderName = 'TableContent');
+                    function built(outsiderCol, outsiderRow, outsiderArray = mainTableArray, headersContent = '', dataContent = '') {
+                        const columnHeads = Object.keys(responseData.brandData[0]);
+                        const tableArray = new Array(outsiderCol);
+                        for (let e = 0; e < tableArray.length; e++) {
+                            tableArray[e] = new Array();
+                            const nameRow = headersContent[e];
+                            tableArray[e].push(nameRow);
+                            outsiderArray.push(tableArray[e]);
+
+                            const blockRow = document.createElement('th');
+
+                            blockRow.innerText = nameRow;
+                            thAccessCol.appendChild(blockRow);
+
+                            for (let n = 0; n < outsiderRow; n++) {
+                                // console.log("N index:", n);
+                                if (n <= 0) {
+                                    outsiderArray[e][n] = new Array();
+                                    blockNewRow = document.createElement('tr');
+                                    if (e === 0) {
+                                        console.log("Columns heads: ",responseData.brandData[n].name, " name");
+
+                                        const blockRow = document.createElement('td');
+                                        const dataStringed = JSON.stringify(responseData.brandData[n].name);
+
+                                        blockRow.innerHTML = dataStringed;
+                                        outsiderArray[e][n].push(blockRow);
+
+                                        blockNewRow.appendChild(blockRow);
+                                    } else if (e === 1) {
+                                        console.log("Columns heads: ",responseData.brandData[n].id, " id");
+
+                                        const blockRow = document.createElement('td');
+                                        const dataStringed = JSON.stringify(responseData.brandData[n].id);
+
+                                        blockRow.innerHTML = dataStringed;
+                                        outsiderArray[e][n].push(blockRow);
+
+                                        blockNewRow.appendChild(blockRow);
+                                    } else if (e === 2) {
+                                        console.log("Columns heads: ",responseData.brandData[n].description, " description");
+
+                                        const blockRow = document.createElement('td');
+                                        const dataStringed = JSON.stringify(responseData.brandData[n].description);
+
+                                        blockRow.innerHTML = dataStringed;
+                                        outsiderArray[e][n].push(blockRow);
+
+                                        blockNewRow.appendChild(blockRow);
+                                    }
+                                    trAccess.appendChild(blockNewRow);
+                                } else if (n === outsiderCol) {
+                                    blockNewRow = document.createElement('tr');
+                                    trAccess.appendChild(blockNewRow);
+                                } else {
+                                    outsiderArray[e][n] = new Array();
+                                    blockNewRow = document.createElement('tr');
+                                    if (e === 0) {
+                                        console.log("Columns heads: ",responseData.brandData[n].name, " name");
+
+                                        const blockRow = document.createElement('td');
+                                        const dataStringed = JSON.stringify(responseData.brandData[n].name);
+
+                                        blockRow.innerHTML = dataStringed;
+                                        outsiderArray[e][n].push(blockRow);
+
+                                        blockNewRow.appendChild(blockRow);
+                                    } else if (e === 1) {
+                                        console.log("Columns heads: ",responseData.brandData[n].id, " id");
+
+                                        const blockRow = document.createElement('td');
+                                        const dataStringed = JSON.stringify(responseData.brandData[n].id);
+
+                                        blockRow.innerHTML = dataStringed;
+                                        outsiderArray[e][n].push(blockRow);
+
+                                        blockNewRow.appendChild(blockRow);
+                                    } else if (e === 2) {
+                                        console.log("Columns heads: ",responseData.brandData[n].description, " description");
+
+                                        const blockRow = document.createElement('td');
+                                        const dataStringed = JSON.stringify(responseData.brandData[n].description);
+
+                                        blockRow.innerHTML = dataStringed;
+                                        outsiderArray[e][n].push(blockRow);
+
+                                        blockNewRow.appendChild(blockRow);
+                                    }
+                                    trAccess.appendChild(blockNewRow);
+
+                                    // const blockRow = document.createElement('td');
+                                    // const dataStringed = JSON.stringify(dataContent[e].name);
+                                    // blockRow.innerHTML = dataStringed;
+                                    // outsiderArray[e][n].push(blockRow);
+
+                                    // blockNewRow.appendChild(blockRow);
+                                    // trAccess.appendChild(blockNewRow);
+                                };
+                            };
+                        };
+                        // for(let n = 0; n < outsiderArray.length; n++) {
+                        //     console.log("Outsider: ", outsiderArray[n]);
+                        //     for(let e = 0; e < outsiderArray[n].length; e++) {
+                        //         console.log("Insider: ", outsiderArray[n][e]);
+                        //         const words = [
+                        //             'name',
+                        //             'id',
+                        //             'description'
+                        //         ];
+                        //         outsiderArray[n][e].push(dataContent[e]);
+                        //         console.log("Data updated: ", outsiderArray[n][e]);
+                        //         console.log("Data value: ", dataContent[n].name);
+                        //     }
+                        // }
+                    };
+                    built(columnHeads.length, rowHeads.length, mainTableArray, columnHeads, responseData.brandData);
+                    
                 });
             }).catch(function (err) {
                 console.log("Error from Catch: ", err);
@@ -33,4 +167,5 @@
         }
     }
 </script>
+
 </html>

@@ -109,11 +109,10 @@ function postBrand(req, res, get) {
                 function promisedData(data) {
                     return new Promise((resolve, reject) => {
                         fs.writeFile('./brands.json', data, 'utf8', (err) => {
-                            err ? reject("Something went wrong: ", err) : resolve(data);
+                            err ? reject("Something went wrong: ", err) : console.log("Resolved data: ", typeof(data));
                         });
                     });
                 }
-                
                 promisedData(backToJson).then((promisedData) => {Responses.SendResponse(res, promisedData)}).catch((err) => Responses.SendResponse(res, err));
             }
         })
