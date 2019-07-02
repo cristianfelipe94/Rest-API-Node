@@ -20,23 +20,45 @@
             </select>
             <div id="js-data-table"></div>
         </div>
-        <div class="setters-view-position">
-            <h2>Setters</h2>
-            <form action="http://localhost:8000/api/v1/brands?" id="js-data-form">
-                <label for="data-name">Car</label><input type="text" name="name" id="data-name">
-                <label for="data-description">Description</label><input type="text" name="description" id="data-description">
-                <input type="button" value="submit-data" onclick="dataSender()">
+
+        <div class="brands-setters-position">
+            <h2>Setters Brands</h2>
+            <form id="js-data-brands" name="js-data-brands">
+                <label for="name">Brand</label>
+                <input type="text" name="name" id="brand-name-input">
+
+                <label for="description">Description</label>
+                <input type="text" name="description" id="brand-description-input">
+
+                <input type="submit" id="js-brand-btn" value="submit">
             </form>
-            <div id="js-data-table"></div>
         </div>
+
+        <div class="cars-setters-position">
+            <h2>Setters Cars</h2>
+            <form id="js-data-cars" name="js-data-cars">
+                <label for="name">Car</label>
+                <input type="text" name="name" id="car-name-input">
+
+                <label for="description">Description</label>
+                <input type="text" name="description" id="car-description-input">
+
+                <label for="color">Color</label>
+                <input type="text" name="color" id="car-color-input">
+
+                <label for="year">Year</label>
+                <input type="text" name="year" id="car-year-input">
+
+                <label for="submited">Submited</label>
+                <input type="date" name="submited" id="car-submited-input">
+
+                <input type="submit" id="js-cars-btn" value="submit">
+            </form>
+        </div>
+
     </div>
-    
 </body>
-<script>
-    function dataSender() {
-        const dataURL = document.getElementById("js-data-form").submit();
-        console.log("Response URL:",dataURL);
-    }
-</script>
-<script src="./getterParagraphs.js"></script>
+<script src="./submitBrand.js"></script>
+<script src="./submitCar.js"></script>
+<script src="./dataGetter.js"></script>
 </html>

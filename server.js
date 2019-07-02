@@ -13,6 +13,7 @@ const routes = [
     { method: 'GET', path: 'api/v1/brands/:id', controller: controllers.getBrandById},
 
     { method: 'POST', path: 'api/v1/brands', controller: controllers.postBrand},
+    { method: 'POST', path: 'api/v1/cars', controller: controllers.postCar},
 
     { method: 'GET', path: 'api/v1/cars', controller: controllers.getAllCars},
     { method: 'GET', path: 'api/v1/cars/:id', controller: controllers.getCarById}

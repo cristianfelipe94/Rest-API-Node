@@ -74,7 +74,7 @@ class Router {
             // Returns:
             // Pass matched route and create an Instance from it.
             const matchedRoute = matched.routeGenerator(req, res, path, query);
-            // console.log("Controller data: ", matchedRoute);
+            console.log("Controller data: ", matchedRoute);
 
             // Get:
             // Create data by passing Request and Response from Route to controller.
