@@ -2,6 +2,16 @@
 const formActionCars = document.getElementById("js-data-cars");
 const formBtnCars = document.getElementById("js-cars-btn");
 
+function dateFormat(createdElementsDate = '') {
+    const newDate = new Date(createdElementsDate);
+    
+    const dateFormat = newDate.getDate()  + "-" + (newDate.getMonth()+1) + "-" + newDate.getFullYear();
+
+    return dateFormat;
+    // Full Format:
+    // dateFormat = newDate.getDate()  + "-" + (newDate.getMonth()+1) + "-" + newDate.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
+}
+
 formActionCars.addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -12,6 +22,7 @@ formActionCars.addEventListener('submit', function (event) {
     const submitedInput = document.getElementById('car-submited-input').value;
 
     if (nameInput && descriptInput && colorInput && yearInput && submitedInput) {
+        const newFormatedDate = dateFormat(submitedInput);
         const formData = new FormData(formActionCars);
         const searchParams = new URLSearchParams();
     
@@ -20,7 +31,7 @@ formActionCars.addEventListener('submit', function (event) {
             searchParams.append(pair[0], pair[1]);
         }
     
-        fetch(`http://localhost:8000/api/v1/cars?name=${nameInput}&description=${descriptInput}&color=${colorInput}&year=${yearInput}&date=${submitedInput}`, {
+        fetch(`http://localhost:8000/api/v1/cars?name=${nameInput}&description=${descriptInput}&color=${colorInput}&year=${yearInput}&date=${newFormatedDate}`, {
             method: 'POST',
             body: searchParams
         }).then( response => {

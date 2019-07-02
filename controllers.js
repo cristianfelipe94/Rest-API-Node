@@ -188,6 +188,16 @@ function postCar(req, res, get) {
     };
 }
 
+function dateFormat(createdElementsDate = '') {
+    const newDate = new Date(createdElementsDate);
+    
+    const dateFormat = newDate.getDate()  + "-" + (newDate.getMonth()+1) + "-" + newDate.getFullYear();
+
+    return dateFormat;
+    // Full Format:
+    // dateFormat = newDate.getDate()  + "-" + (newDate.getMonth()+1) + "-" + newDate.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
+}
+
 module.exports = {
     getAllBrands,
     getBrandById,
