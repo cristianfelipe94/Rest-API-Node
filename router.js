@@ -9,6 +9,7 @@ class Router {
         // Get:
         // Routes from Class Constructor.
         this.routes = routes.map(currentRoute => new Route(currentRoute));
+
         // Return:
         // An Array of Objects with (.method) and (.path).
         // Test:
@@ -30,7 +31,14 @@ class Router {
         
         // Request:
         // This request event, includes a Method GET or POST.
-        const method = this.req.method;
+        const methodOne = this.req.method;
+        const methodTwo = this.req;
+        const methodCheckout = this.req.headers;
+        // const methodString = JSON.stringify(methodCheckout);
+        // const methodValue = JSON.parse(methodString);
+        console.log("Route method one: ", methodOne);
+        console.log("Route method two: ", methodTwo);
+        console.log("Route headers: ", methodCheckout);
         // console.log("Path method:",method)
 
         // Request:

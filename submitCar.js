@@ -38,7 +38,7 @@ formActionCars.addEventListener('submit', function (event) {
             console.log(response.json);
             return response.json();
         }).then( json => {
-            console.log(json);
+            return json;
         }).catch( err => {
             console.log(err);
         });

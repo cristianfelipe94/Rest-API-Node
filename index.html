@@ -66,10 +66,21 @@
             <div id="js-idTable-cars"></div>
         </div>
 
+        <div class="cars-idDeleter-position">
+            <h2>Id Car Deleter</h2>
+            <form id="js-idDeleter-cars" name="js-idDeleter-cars">
+                <label for="id-number-delete">Car Id to Delete</label>
+                <input type="number" name="id-number-delete" id="car-id-delete">
+                <input type="submit" id="js-deleteCar-btn" value="submit">
+            </form>
+            <div id="js-deleteTable-cars"></div>
+        </div>
+
     </div>
 </body>
 <script src="./submitBrand.js"></script>
 <script src="./submitCar.js"></script>
 <script src="./dataGetter.js"></script>
 <script src="./getCarById.js"></script>
+<script src="./deleteCarById.js"></script>
 </html>

@@ -132,7 +132,6 @@ function postBrand(req, res, get) {
     };
 }
 
-
 function postCar(req, res, get) {
     const carsJson = require('./cars.json');
     const dataQuery = get;
@@ -188,14 +187,34 @@ function postCar(req, res, get) {
     };
 }
 
-function dateFormat(createdElementsDate = '') {
-    const newDate = new Date(createdElementsDate);
-    
-    const dateFormat = newDate.getDate()  + "-" + (newDate.getMonth()+1) + "-" + newDate.getFullYear();
+function deleteCarById(req, res, get) {
+    const carsJson = require('./cars.json');
+    const dataId = +get.matched[3].path;
+    const findData = carsJson.carsData.find(element => element.id === dataId);
+    if (findData) {
 
-    return dateFormat;
-    // Full Format:
-    // dateFormat = newDate.getDate()  + "-" + (newDate.getMonth()+1) + "-" + newDate.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
+        // var arrDeletedItems = array.splice(start[, deleteCount[, item1[, item2[, ...]]]]);
+        const indexToBeSpliced = carsJson.carsData.indexOf(findData);
+        const splicedElement = carsJson.carsData.splice(indexToBeSpliced, 1);
+        // console.log("data to be spliced: ", splicedElement);
+
+        // Use:
+        // Parse data to an String.
+        const backToJson = JSON.stringify(carsJson);
+
+        function promisedData(data) {
+            return new Promise((resolve, reject) => {
+                fs.writeFile('./cars.json', data, 'utf8', (err) => {
+                    !err ? resolve(data) : reject("Something went wrong: ", err);
+                });
+            });
+        }
+        return promisedData(backToJson).then((promisedData) => {Responses.SendResponse(res, promisedData)}).catch((err) => Responses.SendResponse(res, err));
+    } else {
+        const errObject = errorHandler(400, 'Bad Request', dataId, `Brand Id: ${dataId} not found, please use a Value from 1 to ${carsJson.carsData.length}`);
+        Responses.SendResponse(res, errObject);
+        Responses.BadRequest(res, new Error(`Brand Id: ${dataId} not found, please use a Value from 1 to ${carsJson.carsData.length}`));
+    };
 }
 
 module.exports = {
@@ -206,5 +225,7 @@ module.exports = {
     postCar,
 
     getAllCars,
-    getCarById
+    getCarById,
+
+    deleteCarById,
 }

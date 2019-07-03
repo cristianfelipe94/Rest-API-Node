@@ -10,14 +10,6 @@
             "id": 1
         },
         {
-            "name": "Nissan",
-            "color": "azul",
-            "year": 2010,
-            "description": "Nuevo Nissan Rogue, color azul.",
-            "date": "10/1/2010",
-            "id": 2
-        },
-        {
             "name": "Hyundai",
             "color": "rojo",
             "year": 2019,

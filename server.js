@@ -16,7 +16,9 @@ const routes = [
     { method: 'POST', path: 'api/v1/cars', controller: controllers.postCar},
 
     { method: 'GET', path: 'api/v1/cars', controller: controllers.getAllCars},
-    { method: 'GET', path: 'api/v1/cars/:id', controller: controllers.getCarById}
+    { method: 'GET', path: 'api/v1/cars/:id', controller: controllers.getCarById},
+
+    { method: 'DELETE', path: 'api/v1/cars/:id', controller: controllers.deleteCarById}
 ];
 
 const serverFront = http.createServer(Router.Register(routes)).listen(port);
