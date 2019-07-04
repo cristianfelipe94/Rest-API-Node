@@ -32,8 +32,9 @@ formIdDeleteCars.addEventListener('submit', function (event) {
                 
                     fetch(`http://localhost:8000/api/v1/cars/${idNumberInput}`, {
                         method: 'DELETE',
-                        headers: {
-                            'Accept': 'application/json'
+                        headers: { 
+                            "Content-Type": "application/json",
+                            "X-HTTP-Method-Override": "DELETE"
                         }
                     }).then( response => {
                         console.log(response.json);

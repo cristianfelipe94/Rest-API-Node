@@ -33,6 +33,7 @@ formIdCars.addEventListener('submit', function (event) {
                 
                     fetch(`http://localhost:8000/api/v1/cars/${idNumberInput}`).then( function (response) {
                         if (response.status !== 200) {
+                            alert(`Error, please make sure all the requested fields are filled with information. Id number: ${idNumberInput} was not found.`);
                             console.log("Error something went wrong: ", response.status);
                         } response.json().then(function (responseData) {
                             const headsWrapper = document.createElement('div');
@@ -85,6 +86,7 @@ formIdCars.addEventListener('submit', function (event) {
                             };
                         });
                     }).catch( err => {
+                        alert(`Error, please make sure all the requested fields are filled with information. Id number: ${idNumberInput} was not found.`);
                         console.log(err);
                     });
                 } else if (responseData.carId < idNumberInput) {

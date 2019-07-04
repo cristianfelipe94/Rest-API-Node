@@ -32,7 +32,7 @@ class Router {
         // Request:
         // This request event, includes a Method GET or POST.
         const method = this.req.method;
-        // console.log('Method is: ', this.req);
+        // console.log('Method is: ', method);
 
         // Request:
         // This request event can contain query information.
@@ -47,9 +47,12 @@ class Router {
         // Pass:
         // Check information that comes from Request and compare it with what it's stored in Instance.
         const matched = this.routes.find((currentRoute) => {
+            // console.log("Routes to compare: ", this.routes);
+            // console.log("Current route: ",currentRoute);
             // Use:
             // Compare every route with request Route.
             const responseRoute = currentRoute.check(path, method);
+            // console.log("Checked route: ",responseRoute);
 
             // Get:
             // Response is an Array or String.
@@ -82,6 +85,11 @@ class Router {
             // Create data by passing Request and Response from Route to controller.
             const data = matchedRoute.controller(this.req, this.res, matchedRoute);
             Responses.SendResponse(res, data);
+            // if (this.req.method === 'OPTIONS') {
+            //     Responses.SendResponse(res, data, {});
+            // } else {
+                
+            // };
         }
     }
 

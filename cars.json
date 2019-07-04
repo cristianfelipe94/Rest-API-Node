@@ -2,28 +2,12 @@
     "carId": 6,
     "carsData": [
         {
-            "name": "Toyota",
-            "color": "blanco",
-            "year": 2000,
-            "description": "Nuevo Toyota RAV4, color blanco.",
-            "date": "10/1/2000",
-            "id": 1
-        },
-        {
             "name": "Audi",
             "color": "Rosado",
             "year": 2017,
             "description": "Nuevo Audi I3, color Rosado.",
             "date": "10/1/2005",
             "id": 2
-        },
-        {
-            "name": "Hyundai",
-            "color": "rojo",
-            "year": 2019,
-            "description": "Nuevo Hyundai Tucson, color rojo.",
-            "date": "10/1/2019",
-            "id": 3
         },
         {
             "name": "BMW",

@@ -25,7 +25,7 @@ class Responses {
         // Get:
         // Data and parse it to a String.
         const response = JSON.stringify(data);
-        console.log("String data: ", typeof(response));
+        // console.log("String data: ", typeof(response));
         
         // Use:
         // WriteHead(statusCode,[StatusMessage]) sends response to Header.

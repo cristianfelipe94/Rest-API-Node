@@ -57,14 +57,18 @@ function getCarById(req, res, get) {
     const carsJson = require('./cars.json');
     const dataId = +get.matched[3].path;
     const findData = carsJson.carsData.find(element => element.id === dataId);
-    if (findData) {
+    if (findData !== 'undefined') {
         console.log("To be sent: ", findData);
         return Responses.SendResponse(res, findData);
+    } else if (findData === 'undefined') {
+        const errObject = errorHandler(400, 'Bad Request', dataId, `Error, please make sure all the requested fields are filled with information. Id number: ${idNumberInput} was not found.`);
+        Responses.SendResponse(res, errObject);
+        Responses.BadRequest(res, new Error(`Error, please make sure all the requested fields are filled with information. Id number: ${idNumberInput} was not found.`));
     } else {
         const errObject = errorHandler(400, 'Bad Request', dataId, `Brand Id: ${dataId} not found, please use a Value from 1 to ${carsJson.carsData.length}`);
         Responses.SendResponse(res, errObject);
         Responses.BadRequest(res, new Error(`Brand Id: ${dataId} not found, please use a Value from 1 to ${carsJson.carsData.length}`));
-    };
+    }
 }
 
 function checkKeys (keysArray) {

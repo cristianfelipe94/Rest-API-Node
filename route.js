@@ -68,6 +68,11 @@ class Route {
     };
 
     check(path, method) {
+        if (method === 'OPTIONS') {
+            method = 'DELETE';
+        };
+        // console.log("Current route method: ", method, "Current route path: ", path);
+        // console.log("This method is: ", this.method);
         // Check:
         // This path comes from Request, must be Splited.
         let paths = this.getPathStatus(path);
