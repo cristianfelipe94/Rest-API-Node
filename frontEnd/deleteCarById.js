@@ -9,19 +9,24 @@ formIdDeleteCars.addEventListener('submit', function (event) {
     const idNumberInput = document.getElementById('car-id-delete').value;
     const letterToNumber = parseFloat(idNumberInput);
 
-    console.log("Got number?: ",letterToNumber);
+    // console.log("Got number?: ",letterToNumber);
 
     if (idNumberInput) {
         fetch(`http://localhost:8000/api/v1/cars`).then(function (response) {
+
             if (response.status !== 200) {
                 console.log("Error something went wrong: ", response.status);
             }
+
             response.json().then(function (responseData) {
-                console.log("Data parsed to JSON: ",responseData);
+                // console.log("Data parsed to JSON: ",responseData);
                 if (letterToNumber <= 0) {
+
                     alert(`Error, submited number is incorrect. You submited: ${idNumberInput}, should not be less than 0 or should not be has decimals.`);
                     throw new error(`Error, submited number is incorrect. You submited: ${idNumberInput}, should not be less than 0 or should not has decimals.`);
+
                 } else if (responseData.carId >= idNumberInput) {
+
                     const formData = new FormData(formIdDeleteCars);
                     const searchParams = new URLSearchParams();
                 

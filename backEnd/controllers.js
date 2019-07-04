@@ -30,17 +30,17 @@ function dataTemplateCars(name, color, year, description = "This car has no desc
 }
 
 function getAllBrands (req, res, get) {
-    const brandsJson = require('./brands.json');
+    const brandsJson = require('../database/brands.json');
     Responses.SendResponse(res, brandsJson);
 }
 
 function getAllCars (req, res, get) {
-    const carsJson = require('./cars.json');
+    const carsJson = require('../database/cars.json');
     Responses.SendResponse(res, carsJson);
 }
 
 function getBrandById(req, res, get) {
-    const brandsJson = require('./brands.json');
+    const brandsJson = require('../database/brands.json');
     const dataId = +get.matched[3].path;
     const findData = brandsJson.brandData.find(element => element.id === dataId);
     if (findData) {
@@ -54,7 +54,7 @@ function getBrandById(req, res, get) {
 }
 
 function getCarById(req, res, get) {
-    const carsJson = require('./cars.json');
+    const carsJson = require('../database/cars.json');
     const dataId = +get.matched[3].path;
     const findData = carsJson.carsData.find(element => element.id === dataId);
     if (findData !== 'undefined') {
@@ -88,7 +88,7 @@ function checkKeys (keysArray) {
 }
 
 function postBrand(req, res, get) {
-    const brandsJson = require('./brands.json');
+    const brandsJson = require('../database/brands.json');
     const dataQuery = get;
     const keyObject = Object.keys(dataQuery.query);
     const keysChecker = checkKeys(keyObject);
@@ -106,7 +106,7 @@ function postBrand(req, res, get) {
         Responses.BadRequest(res, new Error(`New data is NOT correct, please use the Keys: "name" or "description" , to submit new information.`));
     } else if (dataQuery.query) {
         
-        fs.readFile('./brands.json', 'utf8', (err, data) => {
+        fs.readFile('../database/brands.json', 'utf8', (err, data) => {
             if(err) {
                 console.log("Not able to read data: ",err);
             } else {
@@ -125,7 +125,7 @@ function postBrand(req, res, get) {
 
                 function promisedData(data) {
                     return new Promise((resolve, reject) => {
-                        fs.writeFile('./brands.json', data, 'utf8', (err) => {
+                        fs.writeFile('../database/brands.json', data, 'utf8', (err) => {
                             !err ? resolve(data) : reject("Something went wrong: ", err);
                         });
                     });
@@ -137,7 +137,7 @@ function postBrand(req, res, get) {
 }
 
 function postCar(req, res, get) {
-    const carsJson = require('./cars.json');
+    const carsJson = require('../database/cars.json');
     const dataQuery = get;
     const keyObject = Object.keys(dataQuery.query);
     const keysChecker = checkKeys(keyObject);
@@ -155,7 +155,7 @@ function postCar(req, res, get) {
         Responses.BadRequest(res, new Error(`New data is NOT correct, please use the Keys: "name" or "description" , to submit new information.`));
     } else if (dataQuery.query) {
         
-        fs.readFile('./cars.json', 'utf8', (err, data) => {
+        fs.readFile('../database/cars.json', 'utf8', (err, data) => {
             if(err) {
                 console.log("Not able to read data: ",err);
             } else {
@@ -180,7 +180,7 @@ function postCar(req, res, get) {
 
                 function promisedData(data) {
                     return new Promise((resolve, reject) => {
-                        fs.writeFile('./cars.json', data, 'utf8', (err) => {
+                        fs.writeFile('../database/cars.json', data, 'utf8', (err) => {
                             !err ? resolve(data) : reject("Something went wrong: ", err);
                         });
                     });
@@ -192,7 +192,7 @@ function postCar(req, res, get) {
 }
 
 function deleteCarById(req, res, get) {
-    const carsJson = require('./cars.json');
+    const carsJson = require('../database/cars.json');
     const dataId = +get.matched[3].path;
     const findData = carsJson.carsData.find(element => element.id === dataId);
     if (findData) {
@@ -208,7 +208,7 @@ function deleteCarById(req, res, get) {
 
         function promisedData(data) {
             return new Promise((resolve, reject) => {
-                fs.writeFile('./cars.json', data, 'utf8', (err) => {
+                fs.writeFile('../database/cars.json', data, 'utf8', (err) => {
                     !err ? resolve(data) : reject("Something went wrong: ", err);
                 });
             });

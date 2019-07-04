@@ -6,9 +6,9 @@ function removeElement(removeElement) {
 }
 
 function printData(dataSelected) {
-    console.log("Data selected: ", dataSelected);
+    // console.log("Data selected: ", dataSelected);
     const dataType = dataSelected;
-    console.log("Data parsed: ", dataType);
+    // console.log("Data parsed: ", dataType);
     if (dataType === 'brands') {
         fetch(`http://localhost:8000/api/v1/${dataType}`).then(function (response) {
             if (response.status !== 200) {
