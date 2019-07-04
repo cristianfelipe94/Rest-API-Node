@@ -23,21 +23,22 @@ class Route {
         this.controller = singleRoute.controller;
 
         this.pathStatus = this.getPathStatus();
-    }
+    };
 
     // Use:
     // This funtion will create route instances.
     routeGenerator(req, res, path, query) {
 
-        res.setHeader('Access-Control-Allow-Origin','*');
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
         return new Route ({
             path: this.path,
             method: this.method,
             matched: path,
             query: query,
             controller: this.controller,
-        })
-    }
+        });
+    };
 
     // Get: Path and Generate and object with Status options.
     // Default: Use the singlePath tha comes from Constructor.
@@ -49,7 +50,7 @@ class Route {
             .filter(currentValue => currentValue)
             .map((currentPath, indexPath) => new RoutePath(currentPath, indexPath));
         return generatedStatus;
-    }
+    };
 
     // Use:
     // Function will separate response URL.
@@ -64,12 +65,13 @@ class Route {
         const urlStringed = querystring.stringify(urlParsed);
         // console.log("Stringed: ",urlStringed);
         return urlParsed;
-    }
+    };
 
     check(path, method) {
         // Check:
         // This path comes from Request, must be Splited.
         let paths = this.getPathStatus(path);
+
         // Return:
         // Array with objects.
         let matched = false;
@@ -92,7 +94,7 @@ class Route {
         } else return false;
             // console.log("Matched status: ", matched);
             return matched;
-    }
-}
+    };
+};
 
 module.exports = Route;

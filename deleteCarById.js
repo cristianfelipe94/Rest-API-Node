@@ -25,15 +25,17 @@ formIdDeleteCars.addEventListener('submit', function (event) {
                     const formData = new FormData(formIdDeleteCars);
                     const searchParams = new URLSearchParams();
                 
-                    const options = {
-                        method: 'DELETE'
-                    }
                     for (const pair of formData) {
                         console.log(pair);
                         searchParams.append(pair[0], pair[1]);
                     }
                 
-                    fetch(`http://localhost:8000/api/v1/cars/${idNumberInput}`, options).then( response => {
+                    fetch(`http://localhost:8000/api/v1/cars/${idNumberInput}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }).then( response => {
                         console.log(response.json);
                         return response.json();
                     }).then( json => {
@@ -41,6 +43,7 @@ formIdDeleteCars.addEventListener('submit', function (event) {
                     }).catch( err => {
                         console.log(err);
                     });
+
                 } else if (responseData.carId < idNumberInput) {
                     alert(`Error, submited number is incorrect. You submited: ${idNumberInput}, should be less or in the range of 0 to ${responseData.carId}.`);
                     throw new error(`Error, submited number is incorrect. You submited: ${idNumberInput}, should be less or in the range of 0 to ${responseData.carId}.`);

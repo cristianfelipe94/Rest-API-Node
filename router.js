@@ -31,15 +31,8 @@ class Router {
         
         // Request:
         // This request event, includes a Method GET or POST.
-        const methodOne = this.req.method;
-        const methodTwo = this.req;
-        const methodCheckout = this.req.headers;
-        // const methodString = JSON.stringify(methodCheckout);
-        // const methodValue = JSON.parse(methodString);
-        console.log("Route method one: ", methodOne);
-        console.log("Route method two: ", methodTwo);
-        console.log("Route headers: ", methodCheckout);
-        // console.log("Path method:",method)
+        const method = this.req.method;
+        // console.log('Method is: ', this.req);
 
         // Request:
         // This request event can contain query information.
@@ -57,6 +50,7 @@ class Router {
             // Use:
             // Compare every route with request Route.
             const responseRoute = currentRoute.check(path, method);
+
             // Get:
             // Response is an Array or String.
             // Return:
@@ -82,7 +76,7 @@ class Router {
             // Returns:
             // Pass matched route and create an Instance from it.
             const matchedRoute = matched.routeGenerator(req, res, path, query);
-            console.log("Controller data: ", matchedRoute);
+            // console.log("Controller data: ", matchedRoute);
 
             // Get:
             // Create data by passing Request and Response from Route to controller.
