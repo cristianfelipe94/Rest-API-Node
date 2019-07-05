@@ -1,0 +1,42 @@
+:root  {
+    --red-var-color: #ef3e36;
+    --lightBlue-var-color: #17bebb;
+    --grayish-var-color: #2e282a;
+    --blueish-var-color: #011627;
+    --black-var-color: #000000;
+}
+
+body {
+    background-color: var(--blueish-var-color);
+    color:  var(--lightBlue-var-color);
+}
+
+.getters-view-position {
+    margin: 10px;
+    padding: 10px;
+    background-image: linear-gradient(to bottom right, var(--red-var-color), var(--lightBlue-var-color));
+}
+
+.cars-setters-position {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--red-var-color);
+}
+
+.cars-idGetter-position {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--red-var-color);
+}
+
+.cars-idDeleter-position {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--red-var-color);
+}
+
+.brands-setters-position {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--red-var-color);
+}
